@@ -1,0 +1,10 @@
+name: cs7643-mdd
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - pyyaml
+  - matplotlib
+  - scipy
+  - future
+  - pip
