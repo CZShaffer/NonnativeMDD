@@ -8,3 +8,4 @@ dependencies:
   - scipy
   - future
   - pip
+  - speechbrain
