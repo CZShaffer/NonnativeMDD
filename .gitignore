@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Data directories
-data/Librispeech/
-data/L2_ARCTIC/
+data/Librispeech/*
+data/L2_ARCTIC/*
