@@ -31,3 +31,5 @@ def prep_l2_arctic(deleteExisting=True, compression="zip"):
     # Before accessing this data, please request permission from https://psi.engr.tamu.edu/l2-arctic-corpus/
     l2_arctic = "https://drive.google.com/uc?id=1JvI3ktRJdC-CSHEieQMpS8Wca2FTPxjr"
     url_retrieve(l2_arctic, dir="L2_ARCTIC/",filename="L2_ARCTIC" ,deleteExisting=deleteExisting, compression=compression, gdrive=True)
+
+prep_l2_arctic(deleteExisting=False)

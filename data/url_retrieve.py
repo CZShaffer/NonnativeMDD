@@ -26,6 +26,8 @@ def url_retrieve(url, dir=None, filename=None, deleteExisting=False, compression
     if os.path.exists(file_name) or os.path.exists(file_name.split('.')[0]):
         if not deleteExisting:
             print(f"{file_name} already exists. Skipping Download.")
+            extract(file_name, compression)
+            print("Done")
             return
         print(f"{file_name} already exists. Deleting existing file.")
 
@@ -63,6 +65,8 @@ def extract(file_name, compression):
     Setting to none leaves the file compressed and will not delete the compressed file
     :return:
     '''
+    if compression is None:
+        return
     if compression == "tar":
         tar = tarfile.open(file_name, "r:")
         print(f"Extracting to {file_name[:-4]}")
@@ -79,7 +83,7 @@ def extract(file_name, compression):
         tar.close()
         os.remove(file_name)
     elif compression == "zip":
-        zip = zipfile.ZipFile(file_name, "r:")
+        zip = zipfile.ZipFile(file_name, "r")
         print(f"Extracting to {file_name[:-4]}")
         if not os.path.exists(file_name[:-4]):
             os.makedirs(file_name[:-4])
