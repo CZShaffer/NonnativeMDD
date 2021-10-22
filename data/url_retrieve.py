@@ -26,13 +26,14 @@ def url_retrieve(url, dir=None, filename=None, deleteExisting=False, compression
     if os.path.exists(file_name) or os.path.exists(file_name.split('.')[0]):
         if not deleteExisting:
             print(f"{file_name} already exists. Skipping Download.")
-            extract(file_name, compression)
+            if os.path.exists(file_name):
+                extract(file_name, compression)
             print("Done")
             return
         print(f"{file_name} already exists. Deleting existing file.")
 
     if gdrive:
-        gdown.download(url, "L2_ARCTIC", quiet=False)
+        gdown.download(url, file_name, quiet=False)
     else:
         # based on https://stackoverflow.com/questions/22676/how-to-download-a-file-over-http
         f = open(file_name, 'wb')
@@ -74,6 +75,7 @@ def extract(file_name, compression):
             os.makedirs(file_name[:-4])
         tar.extractall(file_name[:-4])
         tar.close()
+        os.remove(file_name)
     elif compression == "tar.gz":
         tar = tarfile.open(file_name, "r:gz")
         print(f"Extracting to {file_name[:-7]}")
@@ -89,5 +91,6 @@ def extract(file_name, compression):
             os.makedirs(file_name[:-4])
         zip.extractall(file_name[:-4])
         zip.close()
+        os.remove(file_name)
 
 
