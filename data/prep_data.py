@@ -1,5 +1,8 @@
 import os
+import glob
 from url_retrieve import url_retrieve, extract
+from L2ARCTIC import walk_files, L2ARCTIC
+from TIMIT import TIMIT
 
 def prep_librispeech(dataset="mini", deleteExisting=False, compression="tar.gz"):
     '''
@@ -49,5 +52,32 @@ def prep_l2_arctic(deleteExisting=False, compression="zip", extract_subdirectory
         for dir in dirs:
             extract(dir, "zip")
 
-# prep_librispeech(dataset="mini", deleteExisting=False)
-# prep_l2_arctic(deleteExisting=False, extract_subdirectory=False)
+def timit_cleanup_wav():
+    dir_name = "."
+    # test = os.listdir(dir_name)
+
+    # filelist = [f for f in os.listdir('.') if os.path.isfile(os.path.join('.', f)) and f.endswith('.WAV.wav')]
+    filelist = list(walk_files(".", suffix='.WAV.wav', prefix=True))
+
+    # print(filelist)
+    for item in filelist:
+        if item.endswith(".WAV.wav"):
+            os.remove(os.path.join(dir_name, item))
+            # print(item)
+
+def verify_data():
+    # prep_librispeech(dataset="mini", deleteExisting=False)
+    # prep_l2_arctic(deleteExisting=False, extract_subdirectory=False)
+    # timit_cleanup_wav()
+
+    tmt = TIMIT(root='timit/data', download=False)
+    print(f"len: {len(tmt)}")
+    for item in tmt[2]:
+        print(item)
+
+    l2a = L2ARCTIC(root='L2_ARCTIC', download=False)
+    print(f"len: {len(l2a)}")
+    for item in l2a[0]:
+        print(item)
+
+verify_data()

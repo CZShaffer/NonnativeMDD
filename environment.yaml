@@ -1,5 +1,8 @@
 name: cs7643-mdd
 channels:
+  - conda-forge
+  - nvidia
+  - pytorch
   - defaults
 dependencies:
   - numpy
@@ -7,5 +10,15 @@ dependencies:
   - matplotlib
   - scipy
   - future
+  - cudatoolkit=10.2
+  - python=3.8
+  - pytorch::pytorch
+  - pytorch::torchaudio
+  - tqdm
   - pip
-  - speechbrain
+  - pip:
+    - textgrid
+    - speechbrain
+    - gdown
+    - PySoundFile
+    - sox
