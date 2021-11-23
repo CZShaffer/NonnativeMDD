@@ -378,8 +378,8 @@ def create_json(
     for wav_file in wav_lst:
 
         # Getting sentence and speaker ids
-        spk_id = wav_file.split("\\")[-2]
-        snt_id = wav_file.split("\\")[-1].replace(".wav", "")
+        spk_id = wav_file.split("/")[-2]
+        snt_id = wav_file.split("/")[-1].replace(".wav", "")
         snt_id = spk_id + "_" + snt_id
 
         # Reading the signal (to retrieve duration in seconds)
@@ -388,9 +388,9 @@ def create_json(
 
         # Retrieving words and check for uppercase
         if uppercase:
-            wrd_file = wav_file.replace(".WAV", ".WRD")
+            wrd_file = wav_file.split(".")[0] + ".WRD"
         else:
-            wrd_file = wav_file.replace(".wav", ".wrd")
+            wrd_file = wav_file.split(".")[0] + ".wrd"
 
         if not os.path.exists(os.path.dirname(wrd_file)):
             err_msg = "the wrd file %s does not exists!" % (wrd_file)
@@ -401,9 +401,9 @@ def create_json(
 
         # Retrieving phonemes
         if uppercase:
-            phn_file = wav_file.replace(".WAV", ".PHN")
+            phn_file = wav_file.split(".")[0] + ".PHN"
         else:
-            phn_file = wav_file.replace(".wav", ".phn")
+            phn_file = wav_file.split(".")[0] + ".phn"
 
         if not os.path.exists(os.path.dirname(phn_file)):
             err_msg = "the wrd file %s does not exists!" % (phn_file)

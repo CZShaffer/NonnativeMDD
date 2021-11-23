@@ -8,11 +8,9 @@ from torch.utils.data import Dataset
 from speechbrain.dataio.dataio import read_audio
 import textgrid
 
+
 # function from previous version of torchaudio.datasets.utils
-def walk_files(root: str,
-               suffix: Union[str, Tuple[str]],
-               prefix: bool = False,
-               remove_suffix: bool = False):
+def walk_files(root: str, suffix: Union[str, Tuple[str]], prefix: bool = False, remove_suffix: bool = False):
     """List recursively all files ending with a suffix at a given root
     Args:
         root (str): Path to directory whose folders need to be listed
@@ -44,23 +42,27 @@ def walk_files(root: str,
 
                 yield f
 
-def load_L2ARCTIC(file: str):
+
+def load_l2arctic(file: str):
     data_path = os.path.splitext(file)[0]
-    split_path =  data_path.split("\\")
+    split_path = data_path.split("/")
     annotation_path = split_path.copy()
     annotation_path[-2] = "annotation"
     textgrid_path = split_path.copy()
     textgrid_path[-2] = "textgrid"
     transcript_path = split_path.copy()
     transcript_path[-2] = "transcript"
-    #Manual annotation files does not have all corresponding entries
+    # Manual annotation files does not have all corresponding entries
     manual_phonemes = None
     manual_words = None
     manual_phone_ends = None
-    if os.path.exists("\\".join(annotation_path) + '.TextGrid'):
+    if os.path.exists("/".join(annotation_path) + ".TextGrid"):
         tg = textgrid.TextGrid()
         # annotation_file = tg.read("\\".join(annotation_path) + '.TextGrid')#, round_digits=15
-        annotation_file = textgrid.TextGrid.fromFile("\\".join(annotation_path) + '.TextGrid')
+        try:
+            annotation_file = textgrid.TextGrid.fromFile("/".join(annotation_path) + ".TextGrid")
+        except ValueError:
+            return
         manual_phonemes = []
         manual_words = []
         manual_phone_ends = []
@@ -68,7 +70,7 @@ def load_L2ARCTIC(file: str):
             manual_words.append(item.mark)
         for item in annotation_file[1]:
             # if a mispronunciation, is in form (correct phoneme, Percieved (Incorrect) phoneme, change type)
-            #TODO: verify this is how we want to handle it
+            # TODO: verify this is how we want to handle it
             phones = item.mark.split(",")
             if len(phones) > 1:
                 manual_phonemes.append((phones[1].strip("*"), phones[0], phones[2]))
@@ -78,44 +80,51 @@ def load_L2ARCTIC(file: str):
     auto_phonemes = []
     auto_words = []
     auto_phone_ends = []
-    textgrid_file = textgrid.TextGrid.fromFile("\\".join(textgrid_path) + '.TextGrid')
+    textgrid_file = textgrid.TextGrid.fromFile("/".join(textgrid_path) + ".TextGrid")
     for item in textgrid_file[0]:
         auto_words.append(item.mark)
     for item in textgrid_file[1]:
         auto_phonemes.append(item.mark)
         auto_phone_ends.append(item.maxTime)
-    with open("\\".join(transcript_path) + '.txt', 'r') as transcript_file:
+    with open("/".join(transcript_path) + ".txt", "r") as transcript_file:
         transcript = next(iter(transcript_file)).strip()
-    signal, sr = torchaudio.load(data_path + '.wav')
-    base_path = "\\".join(split_path)
-    duration = torch.numel(signal)/sr
-    return base_path, transcript, (manual_words, auto_words), (manual_phonemes, auto_phonemes), (manual_phone_ends, auto_phone_ends), duration
+    signal, sr = torchaudio.load(data_path + ".wav")
+    base_path = "/".join(split_path)
+    duration = torch.numel(signal) / sr
+    return (
+        base_path,
+        transcript,
+        (manual_words, auto_words),
+        (manual_phonemes, auto_phonemes),
+        (manual_phone_ends, auto_phone_ends),
+        duration,
+    )
+
 
 class L2ARCTIC(Dataset):
-
     def __init__(self, root: str, download=False):
         self.root = root
-        self._walker = sorted(list(walk_files(root, suffix='.wav', prefix=True)), reverse=True)
-        #modified L2_ARCTIC\L2_ARCTIC\YDCK\YDCK\wav\arctic_a0209.wav  to correct interval data
-        #modified L2_ARCTIC\L2_ARCTIC\YDCK\YDCK\wav\arctic_a0272.wav  to correct interval data
+        self._walker = sorted(list(walk_files(root, suffix=".wav", prefix=True)), reverse=True)
+        # modified L2_ARCTIC\L2_ARCTIC\YDCK\YDCK\wav\arctic_a0209.wav  to correct interval data
+        # modified L2_ARCTIC\L2_ARCTIC\YDCK\YDCK\wav\arctic_a0272.wav  to correct interval data
         # self._walker = ["L2_ARCTIC\\L2_ARCTIC\\YDCK\\YDCK\\wav\\arctic_a0209.wav"]
         self._data = {}
         if not os.path.exists("L2_ARCTIC.json"):
             for item in self._walker:
                 if "suitcase_corpus" in item:
                     continue
-                datapoint = load_L2ARCTIC(item)
-                spk_id = datapoint[0].split("\\")[-4]
-                snt_id = datapoint[0].split("\\")[-3].replace(".wav", "")
-                snt_id = spk_id + "_" + snt_id
-                self._data[snt_id] = {
-                    "base_path":datapoint[0],
-                    "transcript":datapoint[1],
-                    "words":datapoint[2],
-                    "phonemes":datapoint[3],
-                    "phone_ends":datapoint[4],
-                    "duration":datapoint[5]
-                }
+                if datapoint := load_l2arctic(item):
+                    spk_id = datapoint[0].split("/")[-4]
+                    snt_id = datapoint[0].split("/")[-3].replace(".wav", "")
+                    snt_id = spk_id + "_" + snt_id
+                    self._data[snt_id] = {
+                        "base_path": datapoint[0],
+                        "transcript": datapoint[1],
+                        "words": datapoint[2],
+                        "phonemes": datapoint[3],
+                        "phone_ends": datapoint[4],
+                        "duration": datapoint[5],
+                    }
             with open("L2_ARCTIC.json", mode="w") as json_file:
                 json.dump(self._data, json_file, indent=2)
         else:
@@ -126,7 +135,7 @@ class L2ARCTIC(Dataset):
         return len(self._walker)
 
     def __getitem__(self, item):
-        '''
+        """
         base_path: base path corresponding to the files associated with a given .wav file,
         signal: tensor of raw audio data
         transcript: string of transcript for given wav file
@@ -138,8 +147,15 @@ class L2ARCTIC(Dataset):
             -manual: list of end times for phones corresponding to manual alignment
             -automatic: list of end times for phones corresponding to automatic alignment
         duration: duration of the wav in seconds
-        '''
+        """
         datapoint = self._data[sorted(self._data.keys())[item]]
-        signal = read_audio(datapoint["base_path"]+".wav")
-        return [datapoint["base_path"], signal, datapoint["transcript"],datapoint["words"],datapoint["phonemes"],datapoint["phone_ends"],datapoint["duration"]]
-
+        signal = read_audio(datapoint["base_path"] + ".wav")
+        return [
+            datapoint["base_path"],
+            signal,
+            datapoint["transcript"],
+            datapoint["words"],
+            datapoint["phonemes"],
+            datapoint["phone_ends"],
+            datapoint["duration"],
+        ]
