@@ -1,6 +1,6 @@
 {
   "ZHAA_ZHAA": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\ZHAA\\ZHAA\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/ZHAA/ZHAA/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -103,7 +103,7 @@
     "duration": 3.14
   },
   "YKWK_YKWK": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\YKWK\\YKWK\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/YKWK/YKWK/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -206,7 +206,7 @@
     "duration": 3.88
   },
   "YDCK_YDCK": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\YDCK\\YDCK\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/YDCK/YDCK/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -311,7 +311,7 @@
     "duration": 4.188707482993197
   },
   "YBAA_YBAA": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\YBAA\\YBAA\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/YBAA/YBAA/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -419,7 +419,7 @@
     "duration": 3.59
   },
   "TXHC_TXHC": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\TXHC\\TXHC\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/TXHC/TXHC/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -533,7 +533,7 @@
     "duration": 4.889773242630386
   },
   "TNI_TNI": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\TNI\\TNI\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/TNI/TNI/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -638,7 +638,7 @@
     "duration": 3.56
   },
   "TLV_TLV": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\TLV\\TLV\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/TLV/TLV/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -750,7 +750,7 @@
     "duration": 4.198798185941043
   },
   "THV_THV": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\THV\\THV\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/THV/THV/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -858,7 +858,7 @@
     "duration": 3.2672789115646257
   },
   "SVBI_SVBI": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\SVBI\\SVBI\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/SVBI/SVBI/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -969,7 +969,7 @@
     "duration": 3.01734693877551
   },
   "SKA_SKA": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\SKA\\SKA\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/SKA/SKA/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1074,7 +1074,7 @@
     "duration": 3.6213832199546485
   },
   "RRBI_RRBI": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\RRBI\\RRBI\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/RRBI/RRBI/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1182,7 +1182,7 @@
     "duration": 3.4
   },
   "PNV_PNV": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\PNV\\PNV\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/PNV/PNV/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1294,7 +1294,7 @@
     "duration": 4.11
   },
   "NJS_NJS": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\NJS\\NJS\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/NJS/NJS/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1405,7 +1405,7 @@
     "duration": 4.048253968253968
   },
   "NCC_NCC": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\NCC\\NCC\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/NCC/NCC/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1507,7 +1507,7 @@
     "duration": 3.211950113378685
   },
   "MBMPS_MBMPS": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\MBMPS\\MBMPS\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/MBMPS/MBMPS/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1615,7 +1615,7 @@
     "duration": 4.2312925170068025
   },
   "LXC_LXC": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\LXC\\LXC\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/LXC/LXC/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1717,7 +1717,7 @@
     "duration": 3.615079365079365
   },
   "HQTV_HQTV": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\HQTV\\HQTV\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/HQTV/HQTV/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1823,7 +1823,7 @@
     "duration": 3.55
   },
   "HKK_HKK": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\HKK\\HKK\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/HKK/HKK/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -1926,7 +1926,7 @@
     "duration": 3.590294784580499
   },
   "HJK_HJK": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\HJK\\HJK\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/HJK/HJK/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -2030,8 +2030,8 @@
     ],
     "duration": 3.213469387755102
   },
-  "ERMS_ERMS": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\ERMS\\ERMS\\wav\\arctic_a0001",
+  "ERMA_ERMS": {
+    "base_path": "L2_ARCTIC/L2_ARCTIC/ERMA/ERMS/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -2145,7 +2145,7 @@
     "duration": 4.658049886621315
   },
   "EBVS_EBVS": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\EBVS\\EBVS\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/EBVS/EBVS/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -2257,7 +2257,7 @@
     "duration": 3.9138775510204082
   },
   "BWC_BWC": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\BWC\\BWC\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/BWC/BWC/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels and etc",
     "words": [
       null,
@@ -2381,7 +2381,7 @@
     "duration": 4.5180498866213155
   },
   "ASI_ASI": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\ASI\\ASI\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/ASI/ASI/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
@@ -2484,7 +2484,7 @@
     "duration": 3.1122902494331064
   },
   "ABA_ABA": {
-    "base_path": "L2_ARCTIC\\L2_ARCTIC\\ABA\\ABA\\wav\\arctic_a0001",
+    "base_path": "L2_ARCTIC/L2_ARCTIC/ABA/ABA/wav/arctic_a0001",
     "transcript": "Author of the danger trail Philip Steels etc",
     "words": [
       null,
