@@ -72,12 +72,12 @@ def verify_data():
 
     tmt = TIMIT(root='timit/data', download=False)
     print(f"len: {len(tmt)}")
-    for item in tmt[2]:
+    for item in tmt[0]:
         print(item)
 
     l2a = L2ARCTIC(root='L2_ARCTIC', download=False)
     print(f"len: {len(l2a)}")
-    for item in l2a[0]:
+    for item in l2a:
         print(item)
 
 verify_data()
