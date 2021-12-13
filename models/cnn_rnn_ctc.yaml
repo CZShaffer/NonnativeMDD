@@ -1,22 +1,21 @@
 
 seed: 1234
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-output_folder: !ref results/CRNN/<seed>
+output_folder: !ref results/cnn_rnn_ctc/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
 # Data files
-data_folder: datasets/data
-uppercase: True
+data_folder: data
 open_rir_folder: !ref <data_folder> 
-train_annotation: !ref <output_folder>/train.json
-valid_annotation: !ref <output_folder>/dev.json
-test_annotation: !ref <output_folder>/test.json
+train_annotation: !ref <data_folder>/timit_train.json
+valid_annotation: !ref <data_folder>/timit_dev.json
+test_annotation: !ref <data_folder>/timit_test.json
 skip_prep: False
 
 # Training parameters
-number_of_epochs: 50
+number_of_epochs: 30
 batch_size: 8
 lr: 1.0
 sorting: ascending 
@@ -63,7 +62,6 @@ cnn_emb_channel2: 512
 cnn_emb_channel2_pool: !ref <cnn_emb_channel2> // <pool_kernal_size>
 cnn_emb_channel3: 512
 cnn_emb_channel4: 1024
-dropout: 0.5
 
 # GRU
 rnn_input_neurons: !ref <cnn_emb_channel4> // <pool_kernal_size>
@@ -111,7 +109,7 @@ custom_emb_module: !new:speechbrain.nnet.containers.Sequential
 decoder: !new:speechbrain.nnet.RNN.GRU
     hidden_size: !ref <rnn_neurons>
     input_shape: [null, null, !ref <rnn_input_neurons>]
-    dropout: 0.5
+    dropout: 0.1
     bidirectional: True
 
 batchnorm: !new:speechbrain.nnet.normalization.BatchNorm1d
