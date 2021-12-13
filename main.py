@@ -1,15 +1,38 @@
+import pathlib
+import sys
+
 import torch
 import speechbrain as sb
-import models.sinc_ctc_att as sca
-import models.cnn_rnn_ctc as crnn
+import speechbrain.utils.distributed
+import experiments.sinc_ctc_att as sca
+import experiments.cnn_rnn_ctc as crnn
+import experiments.transformer as transformer
 from hyperpyyaml import load_hyperpyyaml
 
 
-def train_cnnrnnctc()::
+def main():
+    run_opts = {
+        "debug": False,
+        "debug_batches": 2,
+        "debug_epochs": 2,
+        "device": "cuda:0",
+        "data_parallel_backend": False,
+        "distributed_launch": False,
+        "distributed_backend": "nccl",
+        "find_unused_parameters": False,
+        "auto_mix_prec": True,
+        "noprogressbar": False,
+    }
+    train_cnnrnnctc(run_opts)
+    # train_sincnet()
+    experiments_path = pathlib.Path("experiments")
+    transformer.run_experiment(experiments_path / "transformer_wav2vec2.yaml", run_opts)
+    transformer.run_experiment(experiments_path / "transformer_hubert.yaml", run_opts)
 
-    hparams_file = "models/cnn_rnn_ctc.yaml"
+
+def train_cnnrnnctc(run_opts):
+    hparams_file = "experiments/cnn_rnn_ctc.yaml"
     overrides = ""
-    run_opts = {"device": 'cuda:0'}
 
     # Load hyperparameters file
     with open(hparams_file) as fin:
@@ -26,10 +49,12 @@ def train_cnnrnnctc()::
     )
 
     # Create Dataset
-    train_data, valid_data, test_data, label_encoder = dataio_prep(hparams)
+    save_directory = pathlib.Path(hparams["save_folder"])
+    save_directory.mkdir(parents=True, exist_ok=True)
+    train_data, valid_data, test_data, label_encoder = crnn.dataio_prep(hparams)
 
     # Trainer initialization
-    asr_brain = crnn(
+    asr_brain = crnn.cnn_rnn_ctc(
         modules=hparams["modules"],
         opt_class=hparams["opt_class"],
         hparams=hparams,
@@ -54,9 +79,10 @@ def train_cnnrnnctc()::
         test_loader_kwargs=hparams["test_dataloader_opts"],
     )
 
+
 def train_sincnet():
     torch.autograd.set_detect_anomaly(True)
-    hparams_file = "models/sinc_ctc_att.yaml"
+    hparams_file = "experiments/sinc_ctc_att.yaml"
     overrides = ""
     # Load hyperparameters file with command-line overrides
     with open(hparams_file) as fin:
@@ -71,7 +97,7 @@ def train_sincnet():
     print("prepping data")
     # Dataset IO prep: creating Dataset objects and proper encodings for phones
     train_data, valid_data, test_data, label_encoder = sca.dataio_prep(hparams)
-    run_opts = {"device": 'cuda:0'}
+    run_opts = {"device": "cuda:0"}
 
     asr_brain = sca.sinc_ctc_att(
         modules=hparams["modules"],
@@ -83,14 +109,20 @@ def train_sincnet():
     asr_brain.label_encoder = label_encoder
 
     def conv16(model):
-        if not hasattr(model, '__iter__'):
+        if not hasattr(model, "__iter__"):
             model.half()
             return
         for module in model:
-            if not isinstance(module, sb.processing.features.InputNormalization) and not isinstance(module, sb.nnet.linear.Linear) and not isinstance(module, sb.nnet.CNN.SincConv) and not isinstance(module, sb.nnet.RNN.AttentionalRNNDecoder):
+            if (
+                not isinstance(module, sb.processing.features.InputNormalization)
+                and not isinstance(module, sb.nnet.linear.Linear)
+                and not isinstance(module, sb.nnet.CNN.SincConv)
+                and not isinstance(module, sb.nnet.RNN.AttentionalRNNDecoder)
+            ):
                 module.half()
                 for child in module.children():
                     conv16(child)
+
     # conv16(asr_brain.modules.values())
 
     print("starting training loop")
@@ -110,6 +142,6 @@ def train_sincnet():
         test_loader_kwargs=hparams["test_dataloader_opts"],
     )
 
+
 if __name__ == "__main__":
-    train_cnnrnnctc()
-    train_sincnet()
+    main()

@@ -134,3 +134,6 @@ data/L2_ARCTIC*
 data/timit*
 .DS_Store
 data/.DS_Store
+
+# Papers
+papers/
