@@ -1,12 +1,7 @@
-
 import os
-import sys
-import torch
-import torch.nn as nn
 import logging
 import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
-from speechbrain.utils.distributed import run_on_main
 
 logger = logging.getLogger(__name__)
 
@@ -177,65 +172,3 @@ def dataio_prep(hparams):
     sb.dataio.dataset.set_output_keys(datasets, ["id", "sig", "phn_encoded"])
 
     return train_data, valid_data, test_data, label_encoder
-
-if __name__ == "__main__":
-
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
-
-    # Load hyperparameters file
-    with open(hparams_file) as fin:
-        hparams = load_hyperpyyaml(fin, overrides)
-
-    # Dataset prep 
-    # from timit_prepare import prepare_timit 
-
-    # Initialize ddp (useful only for multi-GPU DDP training)
-    sb.utils.distributed.ddp_init_group(run_opts)
-
-    # Create experiment
-    sb.create_experiment_directory(
-        experiment_directory=hparams["output_folder"],
-        hyperparams_to_save=hparams_file,
-        overrides=overrides,
-    )
-
-    # multi-gpu save data preparation
-    # run_on_main(
-    #     prepare_timit,
-    #     kwargs={
-    #         "data_folder": hparams["data_folder"],
-    #         "uppercase": hparams["uppercase"],
-    #         "save_json_train": hparams["train_annotation"],
-    #         "save_json_valid": hparams["valid_annotation"],
-    #         "save_json_test": hparams["test_annotation"],
-    #         "skip_prep": hparams["skip_prep"],
-    #     },
-    # )
-
-    # Create Dataset objects and proper encodings for phones
-    train_data, valid_data, test_data, label_encoder = dataio_prep(hparams)
-
-    # Trainer initialization
-    cnn_rnn_ctc = cnn_rnn_ctc(
-        modules=hparams["modules"],
-        opt_class=hparams["opt_class"],
-        hparams=hparams,
-        run_opts=run_opts,
-    )
-    cnn_rnn_ctc.label_encoder = label_encoder
-
-    # Training/validation loop
-    cnn_rnn_ctc.fit(
-        cnn_rnn_ctc.hparams.epoch_counter,
-        train_data,
-        valid_data,
-        train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
-
-    # Test
-    cnn_rnn_ctc.evaluate(
-        test_data,
-        min_key="PER",
-        test_loader_kwargs=hparams["test_dataloader_opts"],
-    )
